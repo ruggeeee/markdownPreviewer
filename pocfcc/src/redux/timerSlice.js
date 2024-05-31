@@ -23,37 +23,37 @@ export const timerSlice = createSlice({
     decrementSession: (state) => {
       if (state.sessionLength > 60) state.sessionLength -= 60;
     },
-    toggleTimer: (state) => {
-      state.timerRunning = !state.timerRunning;
-    },
-    resetTimer: (state) => {
-      state.breakLength = 300;
-      state.sessionLength = 1500;
-      state.timeLeft = 1500;
-      state.sessionType = 'Session';
-      state.timerRunning = false;
-      if (state.intervalId) {
+    toggleTimer: (state, action) => {
+      state.timerRunning = action.payload;
+  },
+  resetTimer: (state) => {
+    state.breakLength = 300;  // reset to 5 minutes
+    state.sessionLength = 1500; // reset to 25 minutes
+    state.timeLeft = state.sessionLength;
+    state.timerRunning = false;
+    state.sessionType = 'Session';
+    if (state.intervalId) {
         clearInterval(state.intervalId);
         state.intervalId = null;
-      }
-    },
+    }
+},
     setTimeLeft: (state, action) => {
       state.timeLeft = action.payload;
     },
     setIntervalId: (state, action) => {
       state.intervalId = action.payload;
-    },
-    decrementTimeLeft: (state) => {
-      if (state.timeLeft > 0) {
+  },
+  decrementTimeLeft: (state) => {
+    if (state.timeLeft > 0) {
         state.timeLeft -= 1;
-      } else if (state.sessionType === 'Session') {
+    } else if (state.sessionType === 'Session') {
         state.sessionType = 'Break';
         state.timeLeft = state.breakLength;
-      } else {
+    } else {
         state.sessionType = 'Session';
         state.timeLeft = state.sessionLength;
-      }
-    },
+    }
+},
   },
 });
 

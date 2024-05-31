@@ -5,17 +5,19 @@ import LengthControl from "./components/lenghtControl";
 import Controls from "./components/controls";
 import BreakLabel from './components/breakLabel';
 import SessionLabel from './components/sessionLabel';
+import PomodoroClock from './components/pomodoroClock';
 import './App.css';
 
 function App() {
   return (
     <div className="app">
             <h1>Pomodoro Clock</h1>
-            <BreakLabel />
-            <SessionLabel />
-            <TimerDisplay />  
+            {/* <BreakLabel /> */}
+            <PomodoroClock />
+            {/* <SessionLabel /> */}
+            {/* <TimerDisplay />  
             <LengthControl />  
-            <Controls />       
+            <Controls />        */}
         </div>
   );
 }
